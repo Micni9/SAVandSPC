@@ -39,4 +39,4 @@ The initial value is chosen to be
 
 $$u(x,y) = 0.05\sin (x)\sin (y)$$
 
-We check the order of convergence of 2nd order schemes of SAV,E-SAV and New SAV-B.
+We check the order of convergence of 2nd order schemes of SAV, E-SAV and New SAV-B.
