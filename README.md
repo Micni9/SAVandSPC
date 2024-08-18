@@ -20,6 +20,6 @@ The nonlinear function $f$ is modified from $f_0(u)=(u^3-u)$ to enforce the Lips
 $$
     \begin{equation*}L=\max_{|u|\leq1}|h'(u)|=200\end{equation*}
 $$
-This equation can be solved by both methods that we cover. We compare the stability performance of Stabilized Predictor-Corrector Method with the SAV\cite{ShenJie2019ANCo} and its variants for different $\frac{\Delta x}{\Delta t}= 2\pi$ by computing the energy functional $\varepsilon(u)=\int_\Omega\frac12\|{\nabla u}\|^2+25(u^2-1)^2dx$:\\
+This equation can be solved by both methods that we cover. We compare the stability performance of Stabilized Predictor-Corrector Method with the SAV and its variants for different $\frac{\Delta x}{\Delta t}= 2\pi$ by computing the energy functional $\varepsilon(u)=\int_\Omega\frac12\|{\nabla u}\|^2+25(u^2-1)^2dx$:\
 For SAV and its variants, $\varepsilon_1(u) = \int_\Omega25(u^2-1)^2dx$
-In this example, we choose the initial value $u(x,0) = \sin x,T=20$\\
+In this example, we choose the initial value $u(x,0) = \sin x,T=20$\

@@ -21,24 +21,6 @@ def Solution(phi_init,Nx,times,s_time, e_time,left,right):
         phi0 = phi1
     return (E,T)
 
-def SPC(phi_init,Nx,times,s_time, e_time,left,right):
-    dt = (e_time-s_time)/times
-    T = s_time + np.arange(times) * dt
-    x,dx = np.linspace(left,right,Nx,retstep=True, endpoint=False)
-
-    # initial value
-    phi0 = phi_init
-    E = [Energy(phi0,dx)]
-    for t in T:
-        b = 2*f(phi0)-2*phi0/dt+L2(phi0,x,dx)-L1(phi0,dx)
-        phi_h = inverse(b,dt/2,Nx,dx)
-        b = 2*f(phi_h)+L1(phi0,dx)-2*phi0/dt+2*(L2(phi_h,dx)-L1(phi_h,x,dx))
-        phi1 = inverse(b,dt/2,Nx,dx)
-
-        E.append(Energy(phi1,dx))
-        phi0=phi1
-    return (E,T)
-
 def SAV(phi_init,Nx,times,s_time, e_time, left, right, C0):
     dt = (e_time-s_time)/times
     T = s_time + np.arange(times)*dt
@@ -105,7 +87,7 @@ def SAV2(phi_init,Nx,times,s_time, e_time, left, right, C0):
         now+=1
         r[now] = v_prod(B,phi1-phi0,dx)/2 + r[now-1]
         E0 = v_prod(phi1,L1(phi1,dx),dx)/2
-        E1[now] = Energy1(phi1)
+        E1[now] = Energy1(phi1,x,dx)
         E.append(E0 + E1[now])
         E_bar.append(E0 + r[now] * r[now] - C0)
         phi_bar = (3*phi1-phi0)/2
@@ -485,14 +467,14 @@ def ESAVII(phi_init,Nx,times,s_time,e_time,left,right,C0):
     E1 = np.empty(times+1)
     s = np.empty(times+1)
 
-    E1[0] = Energy1(phi0)
+    E1[0] = Energy1(phi0,x,dx)
     i = 0
-    E = [Energy(phi0)]
+    E = [Energy(phi0,dx)]
     E_bar = E.copy()
     s[0] = np.exp(E1[i]/C0)
     
     phi_half = inverse(f(phi0)-2*phi0/dt,dt/2,Nx,dx)
-    s_half = np.exp(Energy1(phi_half)/C0)
+    s_half = np.exp(Energy1(phi_half,x,dx)/C0)
     b = f(phi_half)
     #Solve
     for t in T:
@@ -500,7 +482,7 @@ def ESAVII(phi_init,Nx,times,s_time,e_time,left,right,C0):
 
         i += 1
         s[i] = s[i-1]*np.exp(v_prod(b,phi1-phi0,dx)/C0)
-        E1[i] = Energy1(phi1)
+        E1[i] = Energy1(phi1,x,dx)
         E0 = v_prod(phi1,L1(phi1,dx),dx)/2
         E.append(E0 + E1[i])
         E_bar.append(E0 + C0 * np.log(s[i]))
@@ -508,7 +490,7 @@ def ESAVII(phi_init,Nx,times,s_time,e_time,left,right,C0):
         phi_half = (3*phi1-phi0)/2
         phi0 = phi1
         s_half = (3*s[i]-s[i-1])/2
-        b = s_half/np.exp(Energy1(phi_half)/C0) * f(phi_half)
+        b = s_half/np.exp(Energy1(phi_half,x,dx)/C0) * f(phi_half)
         
     return (E_bar,E,E1,s,T)
 
@@ -570,47 +552,6 @@ def New_ESAV(phi_init,Nx,times,s_time,e_time,left,right,C0):
         E_bar.append(np.log(S)*C0)
         
     return (E_bar,E,T)
-
-def A1(phi_init,Nx,times,s_time, e_time,left,right):
-    dt = (e_time-s_time)/times
-    T = s_time + np.arange(times) * dt
-    x,dx = np.linspace(left,right,Nx,retstep=True, endpoint=False)
-
-    # initial value
-    phi0 = phi_init
-    E = [Energy(phi0,dx)]
-
-    #Solve by RFFT
-    for t in T:
-        b = f(phi0) - 2 * phi0/dt
-        phi_bar = inverse(b,dt/2,Nx,dx)
-        #phi_half = (phi_bar+phi0)/2
-        #phi1 = inverse(2 * f(phi_half) +L1(phi0,dx) - 2*phi0/dt,dt/2,Nx,dx)
-        phi1 = inverse(2 * f(phi_bar) +L1(phi0,dx) - 2*phi0/dt,dt/2,Nx,dx)
-        
-        E.append(Energy(phi1,dx))
-        phi0 = phi1
-    return (E,T)
-
-def A2(phi_init,Nx,times,s_time, e_time,left,right, L):
-    dt = (e_time-s_time)/times
-    T = s_time + np.arange(times) * dt
-    x,dx = np.linspace(left,right,Nx,retstep=True, endpoint=False)
-
-    # initial value
-    phi0 = phi_init
-    E = [Energy(phi0,dx)]
-
-    #Solve by RFFT
-    for t in T:
-        b = f(phi0) - 2 * phi0/dt - L1(phi0,dx)
-        Q = 2/dt + M
-        phi_bar = inverse(b,dt,N,dx)
-        phi1 = inverse(2 * f(phi_bar) +L1(phi0,dx) - 2*phi0/dt,dt/2,Nx,dx)
-        
-        E.append(Energy(phi1,dx))
-        phi0 = phi1
-    return (E,T)
 
 def SA(phi_init,Nx,times,s_time, e_time,left,right, L):
     dt = (e_time-s_time)/times
