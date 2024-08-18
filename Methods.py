@@ -88,10 +88,10 @@ def SAV2(phi_init,Nx,times,s_time, e_time, left, right, C0):
     E = [Energy(phi0,dx)]
     E_bar = E.copy()
     r[now] = np.sqrt(E1[now]+C0)
+    phi_bar = inverse(f(phi0)-2*phi0/dt,dt/2,Nx,dx)
 
     #Solve
     for t in T:
-        phi_bar = inverse(f(phi0)-2*phi0/dt,dt/2,Nx,dx)
         temp = Energy1(phi_bar,x,dx)
         B = f(phi_bar)/np.sqrt(temp+C0)
         v = -B/2
@@ -108,6 +108,7 @@ def SAV2(phi_init,Nx,times,s_time, e_time, left, right, C0):
         E1[now] = Energy1(phi1)
         E.append(E0 + E1[now])
         E_bar.append(E0 + r[now] * r[now] - C0)
+        phi_bar = (3*phi1-phi0)/2
         phi0 = phi1
     
     return (E_bar,E,E1,r,T)
@@ -155,11 +156,6 @@ def N_SAV1(phi_init,Nx,times,s_time, e_time,left,right, C0):
     #Solve
     for t in T:
         phi1 = inverse(xi*f(phi0)-phi0/dt,dt,Nx,dx)
-
-        """
-        if np.max(abs((phi1-phi0)/dt+L1(phi1,dx,dy)+xi*f(phi0)))>1e-5:
-            print(f"error! at t={t}, error in phi")
-        """
 
         mu = L1(phi1,dx) +xi * f(phi0)
         q1 = q0 - xi * dt * v_prod(mu,mu,dx)
@@ -259,11 +255,11 @@ def N2_SAV1b(phi_init,Nx,times,s_time, e_time,left,right, C0):
     E = [Energy(phi0,dx)]
     E_bar = E.copy()
     q0 = E[0] + C0
+    B = q0*f(phi0)/(E[-1]+C0)
+    phi_bar = inverse(B-2*phi0/dt,dt/2,Nx,dx)
 
     #Solve
     for t in T:
-        B = q0*f(phi0)/(E[-1]+C0)
-        phi_bar = inverse(B-2*phi0/dt,dt/2,Nx,dx)
         mu = B+L1(phi_bar,dx)
         E_temp = Energy(phi_bar,dx)+C0
         q_bar = q0/(1+dt/2/(E_temp)*v_prod(mu,mu,dx))
@@ -273,10 +269,10 @@ def N2_SAV1b(phi_init,Nx,times,s_time, e_time,left,right, C0):
         mu = L1(phi1,dx)+B
         E.append(Energy(phi1,dx))
         E_temp = E[-1]+C0
-        b = dt/2/E_temp*v_prod(mu,mu,dx)
-        q1 = q0*(1-b)/(1 + b)
+        q1 = q0 - dt*q_bar/E[-1]*v_prod(mu,mu,dx)
         E_bar.append(q1-C0)
         q0 = q1
+        phi_bar = (3*phi1-phi0)/2
         phi0 = phi1
     return (E_bar,E,T)
 
@@ -661,13 +657,12 @@ def SC(phi_init,Nx,times,s_time, e_time,left,right,L):
     # initial value
     phi0 = phi_init
     E = [Energy(phi0,dx)]
-    LL = L*L
 
     for t in T:
-        b = 2*f(phi0)-2*phi0/dt-LL*phi0
-        phi_h = inverse(b,dt/(2+LL*dt),Nx,dx)
-        b = 2*f(phi_h)+L1(phi0,dx)-2*phi0/dt+LL*phi0-2*LL*phi_h
-        phi1 = inverse(b,dt/(2+LL*dt),Nx,dx)
+        b = 2*f(phi0)-2*phi0/dt-L*phi0
+        phi_h = inverse(b,dt/(2+L*dt),Nx,dx)
+        b = 2*f(phi_h)+L1(phi0,dx)-2*phi0/dt+L*phi0-2*L*phi_h
+        phi1 = inverse(b,dt/(2+L*dt),Nx,dx)
 
         E.append(Energy(phi1,dx))
         phi0=phi1
