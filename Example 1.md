@@ -1,0 +1,81 @@
+# SAV
+![image](Report/SAV2_E1.png)
+![image](Report/SAV2_E2.png)
+![image](Report/SAV2_E3.png)
+![image](Report/SAV2_r1.png)
+![image](Report/SAV2_r2.png)
+![image](Report/SAV2_r3.png)
+![image](Report/SAV2_dif2.png)
+![image](Report/SAV2_dif3.png)
+![image](Report/SAV2_dif4.png)
+
+# Exponential SAV
+![image](Report/ESAV2_E1.png)
+![image](Report/ESAV2_E2.png)
+![image](Report/ESAV2_E3.png)
+![image](Report/ESAV2_s1.png)
+![image](Report/ESAV2_s2.png)
+![image](Report/ESAV2_s3.png)
+![image](Report/ESAV2_dif2.png)
+![image](Report/ESAV2_dif3.png)
+![image](Report/ESAV2_dif4.png)
+
+# New SAV
+![image](Report/NSAV_E1.png)
+![image](Report/NSAV_E2.png)
+![image](Report/NSAV_E3.png)
+![image](Report/NSAV_q1.png)
+![image](Report/NSAV_q2.png)
+![image](Report/NSAV_q3.png)
+![image](Report/NSAV_dif2.png)
+![image](Report/NSAV_dif3.png)
+![image](Report/NSAV_dif4.png)
+
+# New SAV-A
+![image](Report/NSAVa_E1.png)
+![image](Report/NSAVa_E2.png)
+![image](Report/NSAVa_E3.png)
+![image](Report/NSAVa_q1.png)
+![image](Report/NSAVa_q2.png)
+![image](Report/NSAVa_q3.png)
+![image](Report/NSAVa_dif2.png)
+![image](Report/NSAVa_dif3.png)
+![image](Report/NSAVa_dif4.png)
+
+# New SAV-B
+![image](Report/NSAVb_E1.png)
+![image](Report/NSAVb_E2.png)
+![image](Report/NSAVb_E3.png)
+![image](Report/NSAVb_q1.png)
+![image](Report/NSAVb_q2.png)
+![image](Report/NSAVb_q3.png)
+![image](Report/NSAVb_dif2.png)
+![image](Report/NSAVb_dif3.png)
+![image](Report/NSAVb_dif4.png)
+
+# New SAV-C
+![image](Report/NSAVc_E1.png)
+![image](Report/NSAVc_E2.png)
+![image](Report/NSAVc_E3.png)
+![image](Report/NSAVc_q1.png)
+![image](Report/NSAVc_q2.png)
+![image](Report/NSAVc_q3.png)
+![image](Report/NSAVc_dif2.png)
+![image](Report/NSAVc_dif3.png)
+![image](Report/NSAVc_dif4.png)
+
+# 2nd order New SAV-B
+![image](Report/NSAVb2_E1.png)
+![image](Report/NSAVb2_E2.png)
+![image](Report/NSAVb2_E3.png)
+![image](Report/NSAVb2_q1.png)
+![image](Report/NSAVb2_q2.png)
+![image](Report/NSAVb2_q3.png)
+![image](Report/NSAVb2_dif2.png)
+![image](Report/NSAVb2_dif3.png)
+![image](Report/NSAVb2_dif4.png)
+
+# Stabilized Predictor-Corrector
+![image](Report/SC_E1.png)
+![image](Report/SC_E2.png)
+![image](Report/SC_E3.png)
