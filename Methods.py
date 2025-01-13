@@ -1,4 +1,4 @@
-from init import *
+from main import *
 # Original solution
 def Solution(phi_init,Nx,times,s_time, e_time,left,right):
     dt = (e_time-s_time)/times
